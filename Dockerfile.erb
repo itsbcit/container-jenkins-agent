@@ -1,12 +1,28 @@
-FROM busybox
+FROM jenkins/agent:latest-alpine-jdk11
+
+USER root
+WORKDIR /
 
 <%= snippet('labels', binding) -%>
 
 <%= snippet('docker-entrypoint', binding) -%>
 
-<%= snippet('dockerize', binding) -%>
-
 <%= snippet('tini', binding) -%>
 
+COPY banner.txt /etc/motd
+COPY 99-zmotd.sh /docker-entrypoint.d/
+
+RUN apk add --no-cache \
+  libcap \
+  vault \
+  ruby \
+  python3 \
+  && setcap -r /usr/sbin/vault
+
+USER jenkins
+WORKDIR /home/jenkins
+ENV TZ=America/Vancouver
+
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
-CMD [ "init-loop" ]
+
+CMD ["jshell"]
