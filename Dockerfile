@@ -4,7 +4,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1663975284"
+LABEL build_id="1664298913"
 
 # Add docker-entrypoint script base
 ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v1.5/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
@@ -33,6 +33,7 @@ RUN apk add --no-cache \
   vault \
   ruby \
   python3 \
+  jq \
   && setcap -r /usr/sbin/vault
 
 USER jenkins
