@@ -4,7 +4,20 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1664298913"
+LABEL build_id="1664837075"
+
+COPY banner.txt /etc/motd
+COPY 99-zmotd.sh /docker-entrypoint.d/
+
+RUN apk add --no-cache \
+  tzdata \
+  libcap \
+  vault \
+  ruby \
+  python3 \
+  py3-pip \
+  jq \
+  && setcap -r /usr/sbin/vault
 
 # Add docker-entrypoint script base
 ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v1.5/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
@@ -24,17 +37,6 @@ RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
 ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static-amd64 /tini
 RUN chmod +x /tini \
  && ln -s /tini /sbin/tini 
-
-COPY banner.txt /etc/motd
-COPY 99-zmotd.sh /docker-entrypoint.d/
-
-RUN apk add --no-cache \
-  libcap \
-  vault \
-  ruby \
-  python3 \
-  jq \
-  && setcap -r /usr/sbin/vault
 
 USER jenkins
 WORKDIR /home/jenkins

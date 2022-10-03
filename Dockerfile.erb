@@ -5,20 +5,22 @@ WORKDIR /
 
 <%= snippet('labels', binding) -%>
 
-<%= snippet('docker-entrypoint', binding) -%>
-
-<%= snippet('tini', binding) -%>
-
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
 
 RUN apk add --no-cache \
+  tzdata \
   libcap \
   vault \
   ruby \
   python3 \
+  py3-pip \
   jq \
   && setcap -r /usr/sbin/vault
+
+<%= snippet('docker-entrypoint', binding) -%>
+
+<%= snippet('tini', binding) -%>
 
 USER jenkins
 WORKDIR /home/jenkins
