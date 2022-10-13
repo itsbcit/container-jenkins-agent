@@ -16,6 +16,7 @@ RUN apk add --no-cache \
   python3 \
   py3-pip \
   jq \
+  openldap-clients \
   && setcap -r /usr/sbin/vault
 
 <%= snippet('docker-entrypoint', binding) -%>
@@ -25,6 +26,16 @@ RUN apk add --no-cache \
 USER jenkins
 WORKDIR /home/jenkins
 ENV TZ=America/Vancouver
+
+<% if image.variant == 'dind' -%>
+
+COPY 50-start-dockerd.sh /docker-entrypoint.d/
+USER root
+RUN apk add --no-cache \
+  docker \
+  && unset DOCKER_HOST
+
+<% end -%>
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 

@@ -44,6 +44,13 @@ WORKDIR /home/jenkins
 ENV TZ=America/Vancouver
 
 
+COPY 50-start-dockerd.sh /docker-entrypoint.d/
+USER root
+RUN apk add --no-cache \
+  docker \
+  && unset DOCKER_HOST
+
+
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
 CMD ["jshell"]
