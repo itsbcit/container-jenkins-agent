@@ -4,7 +4,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1665700625"
+LABEL build_id="1666299183"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -18,6 +18,9 @@ RUN apk add --no-cache \
   py3-pip \
   jq \
   openldap-clients \
+  curl \
+  wget \
+  libxml2-utils \
   && setcap -r /usr/sbin/vault
 
 # Add docker-entrypoint script base
