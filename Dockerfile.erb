@@ -20,6 +20,7 @@ RUN apk add --no-cache \
   curl \
   wget \
   coreutils \
+  zip \
   && setcap -r /usr/sbin/vault
 
 <%= snippet('docker-entrypoint', binding) -%>
