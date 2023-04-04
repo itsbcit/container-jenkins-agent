@@ -4,7 +4,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1678828858"
+LABEL build_id="1680638726"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -22,6 +22,7 @@ RUN apk add --no-cache \
   wget \
   coreutils \
   zip \
+  whois \
   && setcap -r /usr/sbin/vault
 
 # Add docker-entrypoint script base
