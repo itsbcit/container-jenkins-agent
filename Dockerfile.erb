@@ -24,6 +24,9 @@ RUN apk add --no-cache \
   whois \
   && setcap -r /usr/sbin/vault
 
+RUN apk add --no-cache \
+  minio-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
+
 <%= snippet('docker-entrypoint', binding) -%>
 
 <%= snippet('tini', binding) -%>
