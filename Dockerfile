@@ -1,10 +1,11 @@
 FROM jenkins/agent:latest-alpine-jdk11
 
+ARG OC_VERSION=4.10
 USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1684452948"
+LABEL build_id="1692918514"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -23,10 +24,15 @@ RUN apk add --no-cache \
   coreutils \
   zip \
   whois \
+  gcompat \
   && setcap -r /usr/sbin/vault
 
 RUN apk add --no-cache \
   minio-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
+
+RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v$(echo $OC_VERSION | cut -d'.' -f 1)/clients/ocp/stable-$OC_VERSION/openshift-client-linux.tar.gz && \
+    tar xzvf /tmp/oc.tar.gz -C /usr/local/bin/ && \
+    rm -rf /tmp/oc.tar.gz
 
 # Add docker-entrypoint script base
 ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v1.5/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz

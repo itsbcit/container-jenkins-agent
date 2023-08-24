@@ -1,5 +1,6 @@
 FROM jenkins/agent:latest-alpine-jdk11
 
+ARG OC_VERSION=4.10
 USER root
 WORKDIR /
 
@@ -22,10 +23,15 @@ RUN apk add --no-cache \
   coreutils \
   zip \
   whois \
+  gcompat \
   && setcap -r /usr/sbin/vault
 
 RUN apk add --no-cache \
   minio-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
+
+RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v$(echo $OC_VERSION | cut -d'.' -f 1)/clients/ocp/stable-$OC_VERSION/openshift-client-linux.tar.gz && \
+    tar xzvf /tmp/oc.tar.gz -C /usr/local/bin/ && \
+    rm -rf /tmp/oc.tar.gz
 
 <%= snippet('docker-entrypoint', binding) -%>
 
