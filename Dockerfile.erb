@@ -24,6 +24,7 @@ RUN apk add --no-cache \
   zip \
   whois \
   gcompat \
+  bind-tools \
   && setcap -r /usr/sbin/vault
 
 RUN apk add --no-cache \
@@ -49,6 +50,25 @@ RUN apk add --no-cache \
   docker \
   && unset DOCKER_HOST
 
+<% end -%>
+
+<% if image.variant == 'javadev' -%>
+
+USER root
+RUN apk add --no-cache \
+  openjdk8
+
+WORKDIR /src
+ADD https://s3.tis.bcit.ca/dist/java/apache-maven-3.9.4-bin.tar.gz .
+ADD https://s3.tis.bcit.ca/dist/java/grails-2.5.6.zip .
+ADD https://s3.tis.bcit.ca/dist/java/grails-3.2.3.zip .
+RUN ln -s /usr/lib/jvm/java-1.8-openjdk /opt/java/openjdk8 \
+  && tar xzvf apache-maven-3.9.4-bin.tar.gz -C /opt \
+  && unzip grails-2.5.6.zip -d /opt \
+  && unzip grails-3.2.3.zip -d /opt \
+  && rm -f /src/*
+
+USER jenkins
 <% end -%>
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]

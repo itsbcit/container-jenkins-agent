@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1692918514"
+LABEL build_id="1694730254"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -25,6 +25,7 @@ RUN apk add --no-cache \
   zip \
   whois \
   gcompat \
+  bind-tools \
   && setcap -r /usr/sbin/vault
 
 RUN apk add --no-cache \
@@ -63,6 +64,7 @@ USER root
 RUN apk add --no-cache \
   docker \
   && unset DOCKER_HOST
+
 
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]

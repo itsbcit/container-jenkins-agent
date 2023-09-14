@@ -11,4 +11,5 @@ vars:
 variants:
   '':
   dind:
+  javadev:
 test_command: "sleep infinity"
