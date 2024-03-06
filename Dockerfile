@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1694798492"
+LABEL build_id="1709744807"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -13,7 +13,6 @@ COPY 99-zmotd.sh /docker-entrypoint.d/
 RUN apk add --no-cache \
   tzdata \
   libcap \
-  vault \
   ruby \
   python3 \
   py3-pip \
@@ -25,7 +24,10 @@ RUN apk add --no-cache \
   zip \
   whois \
   gcompat \
-  bind-tools \
+  bind-tools 
+
+RUN apk add --no-cache \
+  vault --repository=https://dl-cdn.alpinelinux.org/alpine/v3.18/community \
   && setcap -r /usr/sbin/vault
 
 RUN apk add --no-cache \
@@ -34,6 +36,10 @@ RUN apk add --no-cache \
 RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v$(echo $OC_VERSION | cut -d'.' -f 1)/clients/ocp/stable-$OC_VERSION/openshift-client-linux.tar.gz && \
     tar xzvf /tmp/oc.tar.gz -C /usr/local/bin/ && \
     rm -rf /tmp/oc.tar.gz
+
+RUN curl -sLo /tmp/pup.zip https://github.com/ericchiang/pup/releases/download/v0.4.0/pup_v0.4.0_linux_amd64.zip && \
+    unzip -d /usr/local/bin/ /tmp/pup.zip && \
+    rm -rf /tmp/pup.zip
 
 # Add docker-entrypoint script base
 ADD https://github.com/itsbcit/docker-entrypoint/releases/download/v1.5/docker-entrypoint.tar.gz /docker-entrypoint.tar.gz
