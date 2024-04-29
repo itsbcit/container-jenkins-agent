@@ -79,6 +79,18 @@ RUN ln -s /usr/lib/jvm/java-1.7-openjdk /opt/java/openjdk7 \
 USER jenkins
 <% end -%>
 
+<% if image.variant == 'webdev' -%>
+
+USER root
+# RUN apk add --no-cache \
+#   openjdk7 --repository=https://dl-cdn.alpinelinux.org/alpine/v3.18/community \
+#   openjdk8
+
+WORKDIR /src
+
+USER jenkins
+<% end -%>
+
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
 CMD ["jshell"]
