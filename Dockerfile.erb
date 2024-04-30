@@ -82,9 +82,11 @@ USER jenkins
 <% if image.variant == 'webdev' -%>
 
 USER root
-# RUN apk add --no-cache \
-#   openjdk7 --repository=https://dl-cdn.alpinelinux.org/alpine/v3.18/community \
-#   openjdk8
+RUN apk add --no-cache \
+  composer --repository=https://dl-cdn.alpinelinux.org/alpine/v3.18/community \
+  npm
+
+RUN npm install -g grunt-cli
 
 WORKDIR /src
 

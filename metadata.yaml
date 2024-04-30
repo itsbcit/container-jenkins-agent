@@ -12,4 +12,5 @@ variants:
   '':
   dind:
   javadev:
+  webdev:
 test_command: "sleep infinity"

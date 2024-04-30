@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1709744807"
+LABEL build_id="1714507088"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -83,6 +83,7 @@ RUN ln -s /usr/lib/jvm/java-1.7-openjdk /opt/java/openjdk7 \
   && rm -f /src/*
 
 USER jenkins
+
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 

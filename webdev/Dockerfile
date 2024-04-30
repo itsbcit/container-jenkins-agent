@@ -67,6 +67,17 @@ ENV TZ=America/Vancouver
 
 
 
+USER root
+RUN apk add --no-cache \
+  composer --repository=https://dl-cdn.alpinelinux.org/alpine/v3.18/community \
+  npm
+
+RUN npm install -g grunt-cli
+
+WORKDIR /src
+
+USER jenkins
+
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
 CMD ["jshell"]

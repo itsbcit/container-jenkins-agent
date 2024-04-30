@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1709744807"
+LABEL build_id="1714507088"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -70,6 +70,7 @@ USER root
 RUN apk add --no-cache \
   docker \
   && unset DOCKER_HOST
+
 
 
 
