@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1714509726"
+LABEL build_id="1714513183"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -74,7 +74,10 @@ RUN apk add --no-cache \
   php82-soap \
   php82-ctype \
   php82-dom \
-  php82-simplexml
+  php82-simplexml \
+  php82-xml \
+  php82-xmlwriter \
+  php82-tokenizer
 
 RUN npm install -g grunt-cli
 
