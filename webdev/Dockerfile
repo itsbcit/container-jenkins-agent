@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1714507088"
+LABEL build_id="1714509726"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -69,8 +69,12 @@ ENV TZ=America/Vancouver
 
 USER root
 RUN apk add --no-cache \
-  composer --repository=https://dl-cdn.alpinelinux.org/alpine/v3.18/community \
-  npm
+  composer \
+  npm \
+  php82-soap \
+  php82-ctype \
+  php82-dom \
+  php82-simplexml
 
 RUN npm install -g grunt-cli
 

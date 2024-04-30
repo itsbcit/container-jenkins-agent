@@ -13,4 +13,6 @@ variants:
   dind:
   javadev:
   webdev:
+    vars:
+      php_ver: '82'
 test_command: "sleep infinity"

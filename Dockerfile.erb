@@ -83,8 +83,12 @@ USER jenkins
 
 USER root
 RUN apk add --no-cache \
-  composer --repository=https://dl-cdn.alpinelinux.org/alpine/v3.18/community \
-  npm
+  composer \
+  npm \
+  php<%= image.vars['php_ver'] %>-soap \
+  php<%= image.vars['php_ver'] %>-ctype \
+  php<%= image.vars['php_ver'] %>-dom \
+  php<%= image.vars['php_ver'] %>-simplexml
 
 RUN npm install -g grunt-cli
 
