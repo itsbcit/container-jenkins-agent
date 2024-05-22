@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1714513183"
+LABEL build_id="1715967384"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -75,11 +75,13 @@ WORKDIR /src
 ADD https://s3.tis.bcit.ca/dist/java/apache-maven-3.9.4-bin.tar.gz .
 ADD https://s3.tis.bcit.ca/dist/java/grails-2.5.6.zip .
 ADD https://s3.tis.bcit.ca/dist/java/grails-3.2.3.zip .
+ADD https://s3.tis.bcit.ca/dist/java/grails-3.3.11.zip .
 RUN ln -s /usr/lib/jvm/java-1.7-openjdk /opt/java/openjdk7 \
   && ln -s /usr/lib/jvm/java-1.8-openjdk /opt/java/openjdk8 \
   && tar xzvf apache-maven-3.9.4-bin.tar.gz -C /opt \
   && unzip grails-2.5.6.zip -d /opt \
   && unzip grails-3.2.3.zip -d /opt \
+  && unzip grails-3.3.11.zip -d /opt \
   && rm -f /src/*
 
 USER jenkins
