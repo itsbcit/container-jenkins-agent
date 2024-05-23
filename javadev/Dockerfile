@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1715967384"
+LABEL build_id="1716495754"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -31,7 +31,9 @@ RUN apk add --no-cache \
   && setcap -r /usr/sbin/vault
 
 RUN apk add --no-cache \
-  minio-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
+  minio-client \
+  yq \
+  --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 
 RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v$(echo $OC_VERSION | cut -d'.' -f 1)/clients/ocp/stable-$OC_VERSION/openshift-client-linux.tar.gz && \
     tar xzvf /tmp/oc.tar.gz -C /usr/local/bin/ && \

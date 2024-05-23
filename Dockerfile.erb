@@ -30,7 +30,9 @@ RUN apk add --no-cache \
   && setcap -r /usr/sbin/vault
 
 RUN apk add --no-cache \
-  minio-client --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
+  minio-client \
+  yq \
+  --repository=https://dl-cdn.alpinelinux.org/alpine/edge/community
 
 RUN curl -sLo /tmp/oc.tar.gz https://mirror.openshift.com/pub/openshift-v$(echo $OC_VERSION | cut -d'.' -f 1)/clients/ocp/stable-$OC_VERSION/openshift-client-linux.tar.gz && \
     tar xzvf /tmp/oc.tar.gz -C /usr/local/bin/ && \
