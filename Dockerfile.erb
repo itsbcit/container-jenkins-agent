@@ -46,10 +46,6 @@ RUN curl -sLo /tmp/pup.zip https://github.com/ericchiang/pup/releases/download/v
 
 <%= snippet('tini', binding) -%>
 
-USER jenkins
-WORKDIR /home/jenkins
-ENV TZ=America/Vancouver
-
 <% if image.variant == 'dind' -%>
 
 COPY 50-start-dockerd.sh /docker-entrypoint.d/
@@ -79,8 +75,6 @@ RUN ln -s /usr/lib/jvm/java-1.7-openjdk /opt/java/openjdk7 \
   && unzip grails-3.2.3.zip -d /opt \
   && unzip grails-3.3.11.zip -d /opt \
   && rm -f /src/*
-
-USER jenkins
 <% end -%>
 
 <% if image.variant == 'webdev' -%>
@@ -100,9 +94,11 @@ RUN apk add --no-cache \
 RUN npm install -g grunt-cli
 
 WORKDIR /src
+<% end -%>
 
 USER jenkins
-<% end -%>
+WORKDIR /home/jenkins
+ENV TZ=America/Vancouver
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 

@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1716495754"
+LABEL build_id="1716570297"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -62,12 +62,12 @@ ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static-amd64 
 RUN chmod +x /tini \
  && ln -s /tini /sbin/tini 
 
+
+
+
 USER jenkins
 WORKDIR /home/jenkins
 ENV TZ=America/Vancouver
-
-
-
 
 ENTRYPOINT ["/tini", "--", "/docker-entrypoint.sh"]
 
