@@ -1,4 +1,4 @@
-FROM jenkins/agent:latest-alpine-jdk11
+FROM bcit.io/dockerhub/jenkins/agent:latest-alpine-jdk21
 
 ARG OC_VERSION=4.10
 USER root
@@ -83,6 +83,7 @@ USER root
 RUN apk add --no-cache \
   composer \
   npm \
+  php<%= image.vars['php_ver'] %> \
   php<%= image.vars['php_ver'] %>-soap \
   php<%= image.vars['php_ver'] %>-ctype \
   php<%= image.vars['php_ver'] %>-dom \

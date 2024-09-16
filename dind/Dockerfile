@@ -1,11 +1,11 @@
-FROM jenkins/agent:latest-alpine-jdk11
+FROM bcit.io/dockerhub/jenkins/agent:latest-alpine-jdk21
 
 ARG OC_VERSION=4.10
 USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1716570297"
+LABEL build_id="1726502959"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
