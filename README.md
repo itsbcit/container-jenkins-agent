@@ -2,7 +2,7 @@
 
 ## `docker pull bcit.io/jenkins-reactor`
 
-## This is an extension of [jenkins/agent:latest-alpine-jdk11](https://hub.docker.com/r/jenkins/agent)
+## This is an extension of [jenkins/agent:latest-alpine-jdk21](https://hub.docker.com/r/jenkins/agent)
 
 ## Utilities added for our use cases
 
@@ -11,6 +11,11 @@
 - ruby
 - python3
 - jq
+- yq
+- pup
+- minio cli
+- openshift cli
+- openldap-clients
 
 ### READ MORE
 
