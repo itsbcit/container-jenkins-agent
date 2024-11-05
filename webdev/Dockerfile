@@ -5,10 +5,13 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1726502959"
+LABEL build_id="1730846519"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
+COPY jenkins.conf /etc/ssh/ssh_config.d/
+RUN chown jenkins:jenkins /etc/ssh/ssh_config.d/jenkins.conf
+RUN chmod 0700 /etc/ssh/ssh_config.d/jenkins.conf
 
 RUN apk add --no-cache \
   tzdata \
@@ -55,7 +58,8 @@ RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
               /etc/timezone \
               /etc/localtime \
  && chown 0:0 /etc/shadow \
- && chmod 775 /etc
+ && chmod 775 /etc 
+ 
 
 # Add Tini
 ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static-amd64 /tini

@@ -8,6 +8,9 @@ WORKDIR /
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
+COPY jenkins.conf /etc/ssh/ssh_config.d/
+RUN chown jenkins:jenkins /etc/ssh/ssh_config.d/jenkins.conf
+RUN chmod 0700 /etc/ssh/ssh_config.d/jenkins.conf
 
 RUN apk add --no-cache \
   tzdata \
