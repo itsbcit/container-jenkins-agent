@@ -5,7 +5,7 @@ USER root
 WORKDIR /
 
 LABEL maintainer="jesse@weisner.ca, chriswood.ca@gmail.com"
-LABEL build_id="1730846519"
+LABEL build_id="1751499125"
 
 COPY banner.txt /etc/motd
 COPY 99-zmotd.sh /docker-entrypoint.d/
@@ -58,8 +58,7 @@ RUN tar zxvf docker-entrypoint.tar.gz && rm -f docker-entrypoint.tar.gz \
               /etc/timezone \
               /etc/localtime \
  && chown 0:0 /etc/shadow \
- && chmod 775 /etc 
- 
+ && chmod 775 /etc
 
 # Add Tini
 ADD https://github.com/krallin/tini/releases/download/v0.19.0/tini-static-amd64 /tini
@@ -80,7 +79,11 @@ RUN apk add --no-cache \
   php82-simplexml \
   php82-xml \
   php82-xmlwriter \
-  php82-tokenizer
+  php82-tokenizer \
+  php83-ctype \
+  php83-dom \
+  php83-simplexml 
+  
 
 RUN npm install -g grunt-cli
 

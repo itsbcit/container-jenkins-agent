@@ -93,7 +93,11 @@ RUN apk add --no-cache \
   php<%= image.vars['php_ver'] %>-simplexml \
   php<%= image.vars['php_ver'] %>-xml \
   php<%= image.vars['php_ver'] %>-xmlwriter \
-  php<%= image.vars['php_ver'] %>-tokenizer
+  php<%= image.vars['php_ver'] %>-tokenizer \
+  php83-ctype \
+  php83-dom \
+  php83-simplexml 
+  
 
 RUN npm install -g grunt-cli
 
